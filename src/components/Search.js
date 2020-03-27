@@ -2,6 +2,7 @@ import React, { Component } from "react"
 import Axios from "axios"
 import * as JsSearch from "js-search"
 import styled from "styled-components"
+import AniLink from "gatsby-plugin-transition-link"
 
 class Search extends Component {
   state = {
@@ -111,7 +112,11 @@ class Search extends Component {
                 {queryResults.map(item => {
                   return (
                     <tr key={`row_${item.isbn}`}>
-                      <td>{item.isbn}</td>
+                      <td>
+                        <AniLink fade to={`recipes/${item.isbn}`}>
+                          {item.isbn}
+                        </AniLink>
+                      </td>
                       <td>{item.title}</td>
                       <td>{item.author}</td>
                     </tr>
