@@ -6,12 +6,13 @@ import Banner from "../components/globals/banner/Banner"
 import Section from "../components/globals/section/Section"
 import imgIndex from "../images/bg/sashimi.jpg"
 import Intro from "../components/Intro"
+import ContactForm from "../components/ContactForm"
 
-const IndexPage = () => (
+const Contact = () => (
   <Layout>
     <SEO
       title="Home | Hawaii Mix Plate"
-      description="What are you craving?`,
+      description="Your favorite recipes of popular foods found in different cultures from Hawaii.`,
       author: `@restaurantmarketinghawaii"
       keywords={[
         `Hawaii Food Recipes`,
@@ -30,10 +31,11 @@ const IndexPage = () => (
         ></Banner>
       </Section>
     </HeaderIndex>
-    <Section id="search" style={{ marginTop: "2rem" }}>
-      <Intro heading="search" />
+    <Section style={{ marginTop: "2rem" }}>
+      <Intro heading="How can we help you?" />
+      <ContactForm />
     </Section>
   </Layout>
 )
 
-export default IndexPage
+export default Contact
