@@ -10,12 +10,15 @@ const SectionRow = ({ id, children, style }) => {
 }
 
 const SectionWrapper = styled.div`
-  width: 80vw;
-  margin: 0rem auto;
+  width: 70vw;
+  margin: 3rem auto;
   display: flex;
   justify-content: space-between;
   align-content: center;
   flex-wrap: wrap;
+  @media (max-width: 768px) {
+    width: 90vw;
+  }
 `
 
 export default SectionRow

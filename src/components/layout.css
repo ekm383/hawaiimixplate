@@ -4,7 +4,7 @@
 }
 
 :root {
-  --mainColor: #4eb869;
+  --mainColor: #4bb666;
   --secondaryColor: #ffda71;
   --darkGray: #171717;
   --gray: #666666;
@@ -16,7 +16,7 @@
 body {
   font-family: "Open Sans";
   background-color: var(--white);
-  color: var(--gray);
+  color: var(--darkGray);
 }
 
 h1,

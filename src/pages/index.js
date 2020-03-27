@@ -4,8 +4,8 @@ import SEO from "../components/seo"
 import HeaderIndex from "../components/globals/header/HeaderIndex"
 import Banner from "../components/globals/banner/Banner"
 import Section from "../components/globals/section/Section"
+import Search from "../components/Search"
 import imgIndex from "../images/bg/sashimi.jpg"
-import Intro from "../components/Intro"
 
 const IndexPage = () => (
   <Layout>
@@ -23,15 +23,15 @@ const IndexPage = () => (
       ]}
     />
     <HeaderIndex img={imgIndex}>
-      <Section style={{ width: "100vw", alignItems: "center" }}>
+      <Section>
         <Banner
-          titleSmall="Hawaii Mix Plate"
-          subtitle="Your favorite recipes of popular foods found in different cultures from Hawaii."
+          title="Hawaii Mix Plate"
+          subtitle="Your favorite local food recipes by the cultures that make up modern Hawaii."
         ></Banner>
       </Section>
     </HeaderIndex>
-    <Section id="search" style={{ marginTop: "2rem" }}>
-      <Intro heading="search" />
+    <Section id="search">
+      <Search />
     </Section>
   </Layout>
 )

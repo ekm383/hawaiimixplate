@@ -8,7 +8,7 @@ const NavBarHeader = ({ handleNavBar }) => {
     <HeaderWrapper>
       <Link to="/">
         <p className="logo">
-          <strong>DOMO </strong>Cafe
+          <strong>HAWAII </strong> MIX PLATE
         </p>
       </Link>
       <FaBars
