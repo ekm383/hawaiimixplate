@@ -2,7 +2,7 @@ import React, { Component } from "react"
 import Axios from "axios"
 import * as JsSearch from "js-search"
 import styled from "styled-components"
-import AniLink from "gatsby-plugin-transition-link"
+import { Link } from "gatsby"
 
 class Search extends Component {
   state = {
@@ -17,10 +17,10 @@ class Search extends Component {
    * React lifecycle method to fetch the data
    */
   async componentDidMount() {
-    Axios.get("https://bvaughn.github.io/js-search/books.json")
+    Axios.get("/data/posts.json")
       .then(result => {
         const bookData = result.data
-        this.setState({ bookList: bookData.books })
+        this.setState({ bookList: bookData })
         this.rebuildIndex()
       })
       .catch(err => {
@@ -87,7 +87,7 @@ class Search extends Component {
                 id="Search"
                 value={searchQuery}
                 onChange={this.searchData}
-                class="rq-form-element"
+                className="rq-form-element"
               />
               <i></i>
               <p>Results: {queryResults.length} Recipes</p>
@@ -113,9 +113,7 @@ class Search extends Component {
                   return (
                     <tr key={`row_${item.isbn}`}>
                       <td>
-                        <AniLink fade to={`recipes/${item.isbn}`}>
-                          {item.isbn}
-                        </AniLink>
+                        <Link to={`/recipes/${item.isbn}`}>{item.isbn}</Link>
                       </td>
                       <td>{item.title}</td>
                       <td>{item.author}</td>

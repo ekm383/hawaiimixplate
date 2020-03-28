@@ -36,7 +36,17 @@ const BannerWrapper = styled.div`
     text-align: center;
     padding: 7rem 0rem 8rem 0rem;
   }
-
+  ul {
+    list-style-type: none;
+  }
+  li {
+    display: inline;
+    padding: 0rem 0.5rem;
+  }
+  li svg {
+    font-size: 0.8rem;
+    margin-right: 3px;
+  }
   @media (max-width: 768px) {
     flex-basis: 80%;
     margin: 0 auto;

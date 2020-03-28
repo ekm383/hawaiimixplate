@@ -11,11 +11,6 @@ class NavBarLinks extends Component {
         text: "home",
       },
       {
-        id: 1,
-        path: "#search",
-        text: "search",
-      },
-      {
         id: 3,
         path: "/contact",
         text: "contact",
