@@ -6,7 +6,7 @@ import { Link } from "gatsby"
 
 class Search extends Component {
   state = {
-    bookList: [],
+    recipeList: [],
     search: [],
     searchResults: [],
     isLoading: true,
@@ -17,10 +17,10 @@ class Search extends Component {
    * React lifecycle method to fetch the data
    */
   async componentDidMount() {
-    Axios.get("/data/posts.json")
+    Axios.get("/data/data.json")
       .then(result => {
-        const bookData = result.data
-        this.setState({ bookList: bookData })
+        const recipeData = result.data
+        this.setState({ recipeList: recipeData })
         this.rebuildIndex()
       })
       .catch(err => {
@@ -35,8 +35,8 @@ class Search extends Component {
    * rebuilds the overall index based on the options
    */
   rebuildIndex = () => {
-    const { bookList } = this.state
-    const dataToSearch = new JsSearch.Search("isbn")
+    const { recipeList } = this.state
+    const dataToSearch = new JsSearch.Search("id")
     /**
      *  defines a indexing strategy for the data
      * more about it in here https://github.com/bvaughn/js-search#configuring-the-index-strategy
@@ -52,12 +52,14 @@ class Search extends Component {
      * defines the search index
      * read more in here https://github.com/bvaughn/js-search#configuring-the-search-index
      */
-    dataToSearch.searchIndex = new JsSearch.TfIdfSearchIndex("isbn")
+    dataToSearch.searchIndex = new JsSearch.TfIdfSearchIndex("id")
 
+    dataToSearch.addIndex("cooktime") // sets the index attribute for the data
     dataToSearch.addIndex("title") // sets the index attribute for the data
-    dataToSearch.addIndex("author") // sets the index attribute for the data
+    dataToSearch.addIndex("servings") // sets the index attribute for the data
+    dataToSearch.addIndex("category") // sets the index attribute for the data
 
-    dataToSearch.addDocuments(bookList) // adds the data to be searched
+    dataToSearch.addDocuments(recipeList) // adds the data to be searched
     this.setState({ search: dataToSearch, isLoading: false })
   }
 
@@ -75,8 +77,8 @@ class Search extends Component {
   }
 
   render() {
-    const { bookList, searchResults, searchQuery } = this.state
-    const queryResults = searchQuery === "" ? bookList : searchResults
+    const { recipeList, searchResults, searchQuery } = this.state
+    const queryResults = searchQuery === "" ? recipeList : searchResults
     return (
       <SearchWrapper>
         <div style={{ margin: "0 auto" }}>
@@ -103,20 +105,22 @@ class Search extends Component {
             >
               <thead>
                 <tr>
-                  <th>Cook Time</th>
+                  <th>Time</th>
                   <th>Recipe Name</th>
                   <th>Feeds</th>
+                  <th>Category</th>
                 </tr>
               </thead>
               <tbody>
                 {queryResults.map(item => {
                   return (
-                    <tr key={`row_${item.isbn}`}>
+                    <tr key={`row_${item.id}`}>
+                      <td>{item.cooktime}</td>
                       <td>
-                        <Link to={`/recipes/${item.isbn}`}>{item.isbn}</Link>
+                        <Link to={`/recipes/${item.slug}`}>{item.title}</Link>
                       </td>
-                      <td>{item.title}</td>
-                      <td>{item.author}</td>
+                      <td>{item.servings}</td>
+                      <td>{item.category}</td>
                     </tr>
                   )
                 })}
@@ -155,12 +159,17 @@ const SearchWrapper = styled.div`
     }
   }
   tr {
-    font-size: 1rem;
+    font-size: 0.8rem;
     height: 30px;
     text-align: left;
   }
   tr:nth-child(even) {
     background-color: #f2f2f2;
+  }
+  th:nth-child(1),
+  th:nth-child(3),
+  th:nth-child(4) {
+    width: 15%;
   }
   th {
     text-transform: uppercase;
@@ -170,7 +179,17 @@ const SearchWrapper = styled.div`
   }
   td {
     font-size: 0.9rem;
+    text-transform: capitalize;
     padding-left: 0.3rem;
+  }
+  a {
+    color: var(--darkGray);
+    transition: 200ms ease-in;
+    text-transform: capitalize;
+    &:hover {
+      color: var(--mainColor);
+      padding-left: 0.1rem;
+    }
   }
   /* Blinking Cursor Style */
   .cursor {

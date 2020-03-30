@@ -6,63 +6,119 @@ import HeaderPage from "../components/globals/header/HeaderPage"
 import SEO from "../components/seo"
 import Banner from "../components/globals/banner/Banner"
 import Intro from "../components/Intro"
-import { FaClock, FaUserFriends, FaConciergeBell } from "react-icons/fa"
+import styled from "styled-components"
+import {
+  FaClock,
+  FaUserFriends,
+  FaConciergeBell,
+  FaCircle,
+} from "react-icons/fa"
 import imgIndex from "../images/bg/sashimi.jpg"
 
 const Post = ({ data }) => {
-  const { isbn, author, title } = data.recipeItem
+  const {
+    keywords,
+    title,
+    cooktime,
+    servings,
+    category,
+    ingredients,
+    steps,
+  } = data.recipeItem
 
   return (
     <Layout>
-      <templateWrapper>
+      <Wrapper>
+        {/*
+         * Need to fix keywords to make sure they're comma separated
+         */}
         <SEO
           title="Home | Hawaii Mix Plate"
           description="What are you craving?`,
       author: `@restaurantmarketinghawaii"
-          keywords={[
-            `Hawaii Food Recipes`,
-            `Hawaiian Food`,
-            `Hawaii Local Food`,
-            `Hawaiian Recipes`,
-            `Hawaiian Mix Plate`,
-            `Hawaiian Plate Lunch`,
-          ]}
+          keywords={keywords}
         />
         <HeaderPage img={imgIndex}>
           <Section>
             <Banner title={title}>
-              <ul>
+              <ul className="summaryStyle">
                 <li>
                   <FaClock />
-                  {isbn}
+                  Cooktime: {cooktime} Hour
                 </li>
                 <li>
                   <FaUserFriends />
-                  {author}
+                  Servings: {servings}
                 </li>
                 <li>
                   <FaConciergeBell />
-                  {isbn}
+                  Category: {category}
                 </li>
               </ul>
             </Banner>
           </Section>
         </HeaderPage>
         <Section>
-          <Intro heading="cooking instructions" />
-          <p>Put all steps here</p>
+          <Intro heading="ingredients" />
+          <ul className="ingredientstyle">
+            {ingredients.map((value, id) => {
+              return (
+                <li key={id}>
+                  <FaCircle /> {value}
+                </li>
+              )
+            })}
+          </ul>
         </Section>
-      </templateWrapper>
+        <Section>
+          <Intro heading="steps" />
+          <ul className="stepStyle">
+            {steps.map((value, id) => {
+              return <li key={id}>{value}</li>
+            })}
+          </ul>
+        </Section>
+      </Wrapper>
     </Layout>
   )
 }
 
 export const query = graphql`
-  query($isbn: String!) {
-    recipeItem: postsJson(isbn: { eq: $isbn }) {
-      isbn
-      author
+  query($slug: String!) {
+    recipeItem: dataJson(slug: { eq: $slug }) {
+      id
+      slug
       title
+      published
+      cooktime
+      servings
+      category
+      ingredients
+      steps
+      keywords
+    }
+  }
+`
+
+const Wrapper = styled.div`
+  .summaryStyle {
+    text-transform: capitalize;
+  }
+  .ingredientstyle {
+    li {
+      display: inline;
+      margin-right: 1rem;
+      font-size: 1rem;
+      svg {
+        font-size: 0.5rem;
+        margin-right: 0.2rem;
+      }
+    }
+  }
+  .stepStyle {
+    list-style-type: none;
+    li {
+      margin-bottom: 1.5rem;
     }
   }
 `

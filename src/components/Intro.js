@@ -17,14 +17,15 @@ const IntroWrapper = styled.div`
   margin-bottom: 1rem;
   h2 {
     color: var(--mainBlue);
-    line-height: 3.5rem;
-    margin-bottom: 1rem;
-    font-size: 2rem;
+    line-height: 2rem;
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-top: 1rem;
   }
   @media (max-width: 768px) {
     flex-basis: 100%;
     h2 {
-      font-size: 1.2rem;
+      font-size: 2rem;
       margin-bottom: 0rem;
     }
     p {

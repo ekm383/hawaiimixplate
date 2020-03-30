@@ -4,10 +4,10 @@ exports.createPages = async ({ graphql, actions }) => {
 
   const { data } = await graphql(`
     query {
-      recipes: allPostsJson {
+      recipes: allDataJson {
         edges {
           node {
-            isbn
+            slug
           }
         }
       }
@@ -16,10 +16,10 @@ exports.createPages = async ({ graphql, actions }) => {
 
   data.recipes.edges.forEach(({ node }) => {
     createPage({
-      path: `recipes/${node.isbn}`,
+      path: `recipes/${node.slug}`,
       component: path.resolve("./src/templates/post-template.js"),
       context: {
-        isbn: node.isbn,
+        slug: node.slug,
       },
     })
   })

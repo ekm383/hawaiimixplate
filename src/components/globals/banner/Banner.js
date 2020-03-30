@@ -39,7 +39,7 @@ const BannerWrapper = styled.div`
   ul {
     list-style-type: none;
   }
-  li {
+  ul li {
     display: inline;
     padding: 0rem 0.5rem;
   }
@@ -47,8 +47,9 @@ const BannerWrapper = styled.div`
     font-size: 0.8rem;
     margin-right: 3px;
   }
+
   @media (max-width: 768px) {
-    flex-basis: 80%;
+    flex-basis: 95%;
     margin: 0 auto;
     .box {
       flex-basis: 100%;
